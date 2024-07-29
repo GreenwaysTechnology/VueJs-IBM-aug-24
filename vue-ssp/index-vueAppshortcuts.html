@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue app</title>
+    <script src="https://unpkg.com/vue@3.1.1/dist/vue.global.prod.js"></script>
+</head>
+
+<body>
+    <h1>Vue SSP App</h1>
+    <div id="root">
+
+    </div>
+    <script>
+        //Get vue instance and create App
+        // //way 1:
+        // const app = Vue.createApp()
+        // console.log(app)
+        //way 2: ES 6 Destructuring 
+        const { createApp } = Vue
+        const myapp = createApp()
+        console.log(myapp)
+    </script>
+</body>
+
+</html>
