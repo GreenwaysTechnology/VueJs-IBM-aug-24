@@ -9,6 +9,7 @@
     <script type="importmap">
         {
             "imports":{
+                "name":"./src/name.js",
                 "vue":"https://unpkg.com/vue@3/dist/vue.esm-browser.js"
             }
         }
@@ -16,21 +17,12 @@
 </head>
 
 <body>
-    <div id="root">
-        
-    </div>
     <script type="module">
-        //import factory method called createApp
+        import { name, age } from 'name'
         import { createApp } from 'vue'
-        // Create dom element and insert into existing dom tree
-        // create app instance
-        const app = createApp({
-            template:`
-                <h1>Hello,Vue</h1>
-            `,            
-        })
-        //console.log(app)
-        app.mount("#root")
+        console.log(name, age)
+        const app = createApp()
+        console.log(app)
     </script>
 </body>
 
