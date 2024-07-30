@@ -1269,9 +1269,47 @@ index.html
 </body>
 
 </html>
+.....................................................................................				Component Composition
+.....................................................................................
+
+App -Root Component
+ |
+ Welcome Component
 
 
+src/components/Welcome.js
+export default {
+   template: `
+        <h1>Welcome To Vue Application</h1>
+    `
+}
 
+src/components/App.js
+import Welcome from "./Welcome.js"
+
+//component must be exported using export default
+export default {
+    components: {
+        Welcome
+    },
+    template: `
+        <h1>Vue Component</h1>
+        <Welcome></Welcome>
+    `
+    //rest of the options goes here
+}
+...
+
+Assigment:
+
+Build layout
+
+  Page
+   |
+   Header
+   Body
+     Section1,Section2,Section	
+   Footer
 
 
 
