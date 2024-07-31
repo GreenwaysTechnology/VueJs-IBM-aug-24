@@ -1,7 +1,9 @@
 <script setup>
-import Customer from "./components/Customer.vue";
 </script>
 <template>
-  <Customer />
+    <!-- Pascal Case -->
+  <StatusBar />
+  <!-- keb-case -->
+   <status-bar></status-bar>
 </template>
 <style></style>
