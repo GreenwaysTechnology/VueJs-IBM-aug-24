@@ -1,15 +1,7 @@
-<script>
-import Greeter from './components/Greeter.vue'
-export default {
-components: {
-    Greeter
-}
-}
+<script setup>
+import Customer from "./components/Customer.vue";
 </script>
 <template>
-  <div>
-    <Greeter/>
-  </div>
+  <Customer />
 </template>
-<style>
-</style>
+<style></style>

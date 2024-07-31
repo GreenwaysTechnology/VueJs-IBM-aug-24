@@ -1517,10 +1517,105 @@ components: {
 
 Task:
 Build layout like header,body with sections, with footer.
+.....................................................................................
+			SFC- Composition API -setup function
+.....................................................................................
 
+setup function:
+...............
 
+src/components/Address.vue
+<script>
+export default {
+  setup() {},
+};
+</script>
+<template>
+  <div>
+    <address>
+      <p>10th street</p>
+      <p>Gandhi Nagar</p>
+      <p>Coimbatore</p>
+      <p>Tamil Nadu</p>
+    </address>
+  </div>
+</template>
+<style></style>
 
+src/components/User.vue
+<script>
+import Address from "./Address.vue";
+export default {
+  components: {
+    Address,
+  },
+  setup() {},
+};
+</script>
+<template>
+  <div>
+    <h1>User</h1>
+    <h2>Subramanian</h2>
+    <Address />
+  </div>
+</template>
+<style></style>
 
+src/App.vue
+<script>
+import User from './components/User.vue'
+export default {
+components: {
+    User
+},
+setup(){
+
+}
+}
+</script>
+<template>
+  <div>
+    <User />
+  </div>
+</template>
+<style></style>
+
+.....................................................................................
+			SFC- Composition API -setup attribute
+.....................................................................................
+
+src/components/Product.vue
+<script setup>
+</script>
+<template>
+    <h1>
+        Product Page
+    </h1>
+</template>
+<style>
+</style>
+
+src/components/Customer.vue
+<script setup>
+import Product from './Product.vue'
+</script>
+<template>
+    <div>
+        <h1>Customer Page</h1>
+    </div>
+    <Product/>
+</template>
+<style>
+</style>
+
+src/App.vue
+<script setup>
+import Customer from "./components/Customer.vue";
+</script>
+<template>
+  <Customer />
+</template>
+<style></style>
 
 
 
