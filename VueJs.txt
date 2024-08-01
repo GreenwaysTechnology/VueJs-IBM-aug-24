@@ -2501,6 +2501,187 @@ const isEnabled = false;
   </div>
 </template>
 <style></style>
+.....................................................................................
+			  Property binding- props binding
+....................................................................................
+
+Component contains 
+1.user interface
+2.data 
+
+if you create component which contains ui and data, after rendering if you want to supply different data for that component not possible.
+
+if i create profile component
+
+<script setup>
+import Address from "./Address.vue";
+let firstName = "Subramaian";
+let lastName = "Murugan";
+let status = true;
+</script>
+<template>
+  <div>
+    <h2>{{ firstName }} {{ lastName }}</h2>
+    <h2>{{ status ? "Available" : "Not Available" }}</h2>
+    <Address />
+  </div>
+</template>
+<style></style>
+
+here firstName,lastName ,status is "tightly coupled" with this component.
+
+what if i want to display different profile information,you cant reuse the component
+
+Solution:
+  You should create component that should be configurable.
+
+You have to pass different data to the component during runtime.
+
+How to configure the component which accepts data?
+
+  "Props or or property pattern.
+
+Props or property is way of passing data to the component.
+
+Props are passed from the parent component to child component.
+.....................................................................................
+			Props and Options api
+.....................................................................................
+
+Props Pattern
+
+Syntax:
+
+From the parent compoenent template
+
+<template>
+   <Child  title="value" :value="variable" />
+</template>
+
+  <Child  title="value" :value="variable" />
+	   |              |
+        props           props="variable"
+
+here title is property which value is static
+:value is also property which value is dynamic
+
+
+eg:
+
+child Component
+
+src/comonents/User.vue
+<script>
+export default {
+  components: {},
+  props: ["id", "name", "email"],
+};
+</script>
+<template>
+  <div>
+    <h1>User information</h1>
+    <h2>Id {{ id }}</h2>
+    <h2>Name {{ name }}</h2>
+    <h2>Email {{ email }}</h2>
+  </div>
+</template>
+<style></style>
+
+
+Parent Component
+src/App.vue
+<script>
+import User from "./components/User.vue";
+export default {
+  components: {
+    User,
+  },
+  data() {
+    return {
+      id: 3,
+      name: "Ram",
+      email: "ram@gmail.com",
+    };
+  },
+};
+</script>
+<template>
+  <div>
+    <!-- Static Property -->
+    <User id="1" name="subu" email="subu@gmail.com" />
+    <User id="2" name="murugan" email="murugan@gmail.com" />
+    <!-- Dynamic property -->
+    <User :id="id" :name="name" :email="email" />
+  </div>
+</template>
+<style></style>
+.....................................................................................
+			Props and Composion api
+.....................................................................................
+setup function:
+
+Child Component
+
+src/components/User.vue
+<script>
+export default {
+  components: {},
+  props: ["id", "name", "email"],
+  setup() {
+    
+  },
+};
+</script>
+<template>
+  <div>
+    <h1>User information</h1>
+    <h2>Id {{ id }}</h2>
+    <h2>Name {{ name }}</h2>
+    <h2>Email {{ email }}</h2>
+  </div>
+</template>
+<style></style>
+
+
+Parent
+src/App.vue
+<script>
+import User from "./components/User.vue";
+export default {
+  components: {
+    User,
+  },
+  setup() {
+    
+    return {
+      id: 3,
+      name: "Ram",
+      eamil: "ram@gmail.com",
+    };
+  },
+};
+</script>
+<template>
+  <div>
+    <!-- Static Property -->
+    <User id="1" name="subu" email="subu@gmail.com" />
+    <User id="2" name="murugan" email="murugan@gmail.com" />
+    <!-- Dynamic property -->
+    <User :id="id" :name="name" :email="email" />
+  </div>
+</template>
+<style></style>
+.....................................................................................
+			
+
+
+
+
+
+
+
+
+
 
 
 

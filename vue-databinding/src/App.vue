@@ -1,24 +1,53 @@
-<script setup>
-const imgUrl = "/src/assets/logo.svg";
-const isHidden = true;
-const isEnabled = false;
+<!-- <script>
+import User from "./components/User.vue";
+export default {
+  components: {
+    User,
+  },
+  data() {
+    return {
+      id: 3,
+      name: "Ram",
+      eamil: "ram@gmail.com",
+    };
+  },
+};
 </script>
 <template>
   <div>
-    <h1>Static Binding</h1>
-    <img src="./assets/logo.svg" height="100" width="100" />
+    <!-- Static Property -->
+    <!-- <User id="1" name="subu" email="subu@gmail.com" />
+    <User id="2" name="murugan" email="murugan@gmail.com" />
+    Dynamic property -->
+    <!-- <User :id="id" :name="name" :email="email" />
   </div>
+</template> -->
+<!-- <style></style> --> -->
+
+<!-- setup -->
+<script>
+import User from "./components/User.vue";
+export default {
+  components: {
+    User,
+  },
+  setup() {
+    
+    return {
+      id: 3,
+      name: "Ram",
+      eamil: "ram@gmail.com",
+    };
+  },
+};
+</script>
+<template>
   <div>
-    <h1>Dynamic Binding</h1>
-    <img :src="imgUrl" height="100" width="100" />
-  </div>
-  <div>
-    <h1>Dynamic binding with show and hide</h1>
-    <article :hidden="isHidden">This is article</article>
-  </div>
-  <div>
-    <h1>Dynamic binding with enable and disable</h1>
-    <button :disabled="isEnabled">button</button>
+    <!-- Static Property -->
+    <User id="1" name="subu" email="subu@gmail.com" />
+    <User id="2" name="murugan" email="murugan@gmail.com" />
+    <!-- Dynamic property -->
+    <User :id="id" :name="name" :email="email" />
   </div>
 </template>
 <style></style>
