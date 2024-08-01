@@ -1810,5 +1810,431 @@ eg:
    <status-bar></status-bar>
 </template>
 <style></style>
+.....................................................................................
+				Templates
+....................................................................................
+
+Template is representation of "View"
+
+View is runtime representation of user interface
+View is Typically DOM tree.
+
+Types of templates:
+
+1.Static template
+   It is havingl only pure html tags
+
+2.Dynamic templates
+   Template is having html code and vue instructions
+
+Vue instructions are special symbols and notations.
+
+
+Data Binding:
+   Passing data from the component to view  and View to component.
+
+
+Types of data binding:
+1.Interpolation
+2.Property and props Binding
+3.Attribute Binding
+4.Event Binding
+5.Two way data binding
+6.Class and Style binding
+....................................................................................
+			 Design patterns in Vue.js
+
+1.Angular uses "MVC" pattern
+2.React uses "Flux" Pattern
+3.Vue.js uses "MVC" pattern
+
+M-Model- data
+V-View - Presentation
+C-Controller
+
+MVC In Vue:
+...........
+
+<script>
+   M + C ->logic
+</script>
+ 
+<template>
+   View logic
+</template>
+
+<style>
+
+</style>
+
+Component encaspulate Model + Controller + View
+.....................................................................................
+				Interpolation
+.....................................................................................
+
+Transfering data (state) from controller to View.
+
+State :
+  State can be represented in ways
+
+1.Primitives
+   numbers,strings,booleans
+2.Objects and Collections
+   literal object and arrays
+
+.....................................................................................
+			Interpolation - SFC - Options API Pattern
+.....................................................................................
+  
+Create new project
+
+npm init vue@latest
+
+Data configuration:
+
+let options = {
+ data: ?
+ props: ?
+ methods: ?
+
+}
+basic syntax: ES 5 Syntax
+export default {
+  data:function(){
+    return {} //state object
+  }
+
+}
+
+basic syntax: ES 6 Syntax
+export default {
+  data(){
+    return {} //state object
+  }
+
+}
+
+eg;
+<script>
+export default {
+  components: {},
+  data() {
+    //you must return object
+    return {
+      name: "Subramanian",
+    };
+  },
+};
+</script>
+<template>
+
+</template>
+<style></style>
+
+How to bind /show the variable inside view?
+ {{Variable}} - interpolation
+
+<script>
+export default {
+  components: {},
+  data() {
+    //you must return object
+    return {
+      name: "Subramanian",
+    };
+  },
+};
+</script>
+<template>
+ <h1>Your name is {{name}}</h1>
+</template>
+<style></style>
+....................................................................................
+
+More data
+<script>
+export default {
+  components: {},
+  data() {
+    //you must return object
+    return {
+      firstName: "Subramanian",
+      lastName: "Murugan",
+      status: true,
+      address: {
+        city: "Coimbatore",
+        state: "Tamil nadu",
+      },
+    };
+  },
+};
+</script>
+<template>
+  <div>
+    <h2>{{ firstName }} {{ lastName }}</h2>
+    <h2>{{ status ? "Available" : "Not Available"}}</h2>
+    <p>
+     {{address.city}},
+    </p>
+     <p>
+     {{address.state}}
+    </p>
+  </div>
+</template>
+<style></style>
+.....................................................................................
+			Interpolation - SFC - Composition API Pattern
+.....................................................................................
+
+Using Setup function:
+.....................
+
+<script>
+ setup(){
+   return {} //state object
+ }
+</script>
+
+<script>
+export default {
+  components: {
+    
+  },
+  setup() {
+    let firstName = "Subramanian";
+    let lastName = "Murugan";
+    let status = true;
+    let address = {
+      city: "Coimbatore",
+    };
+    //return state object
+    return {
+      firstName,
+      lastName,
+      status,
+      address,
+    };
+  },
+};
+</script>
+<template>
+  <div>
+    <h2>{{ firstName }} {{ lastName }}</h2>
+    <h2>{{ status ? "Available" : "Not Available" }}</h2>
+    <p>{{ address.city }},</p>
+    <p>
+      {{ address.state }}
+    </p>
+  </div>
+</template>
+<style></style>
+
+
+Using Setup attribute:
+......................
+<script setup>
+let firstName = "Subramanian";
+let lastName = "Murugan";
+let status = true;
+let address = {
+  city: "Coimbatore",
+};
+</script>
+<template>
+  <div>
+    <h2>{{ firstName }} {{ lastName }}</h2>
+    <h2>{{ status ? "Available" : "Not Available" }}</h2>
+    <p>{{ address.city }},</p>
+    <p>
+      {{ address.state }}
+    </p>
+  </div>
+</template>
+<style></style>
+....................................................................................
+			Component Composition and Data binding
+.....................................................................................
+
+Options API:
+src/components/Address.vue
+<script>
+export default {
+  components: {},
+  data() {
+    return {
+      address: {
+        city: "Coimbatore",
+        state: "Tamil nadu",
+      },
+    };
+  },
+};
+</script>
+<template>
+  <p>{{ address.city }},</p>
+  <p>
+    {{ address.state }}
+  </p>
+</template>
+<style></style>
+
+src/components/Profile.vue
+<script>
+import Address from './Address.vue'
+export default {
+  components: {
+    Address 
+  },
+  data() {
+    return {
+      firstName: "Subramanian",
+      lastName: "Murugan",
+      status: true
+    };
+  },
+};
+</script>
+<template>
+  <div>
+    <h2>{{ firstName }} {{ lastName }}</h2>
+    <h2>{{ status ? "Available" : "Not Available" }}</h2>
+    <Address/>
+  </div>
+</template>
+<style></style>
+
+src/App.vue
+<script>
+import Profile from './components/Profile.vue'
+export default {
+  components: {
+    Profile
+  },
+}
+</script>
+<template>
+   <Profile/>
+</template>
+<style></style>
+.....................................................................................
+Composition API : Setup fun:
+.............................
+src/components/Address.vue
+<script>
+export default {
+  components: {},
+  setup () {
+  let address ={
+        city: "Coimbatore",
+        state: "Tamil nadu",
+      },
+    return {
+        address
+    }
+  }
+};
+</script>
+<template>
+  <p>{{ address.city }},</p>
+  <p>
+    {{ address.state }}
+  </p>
+</template>
+<style></style>
+	
+
+src/components/Profile.vue
+
+<script>
+import Address from "./Address.vue";
+export default {
+  components: {
+    Address,
+  },
+  setup() {
+    let firstName = "Subramaian";
+    let lastName = "Murugan";
+    let status = true;
+    return {
+      firstName,
+      lastName,
+      status,
+    };
+  },
+};
+</script>
+<template>
+  <div>
+    <h2>{{ firstName }} {{ lastName }}</h2>
+    <h2>{{ status ? "Available" : "Not Available" }}</h2>
+    <Address />
+  </div>
+</template>
+<style></style>
+
+
+src/App.vue
+<script>
+import Profile from "./components/Profile.vue";
+export default {
+  components: {
+    Profile,
+  },
+  setup() {},
+};
+</script>
+<template>
+  <Profile />
+</template>
+<style></style>
+.................................................................................
+
+Using setup attribute:
+
+src/components/Address.vue
+<script>
+let address = {
+  city: "Coimbatore",
+  state: "Tamil nadu",
+};
+</script>
+<template>
+  <p>{{ address.city }},</p>
+  <p>
+    {{ address.state }}
+  </p>
+</template>
+<style></style>
+
+
+src/components/Profile.vue
+<script setup>
+import Address from "./Address.vue";
+let firstName = "Subramaian";
+let lastName = "Murugan";
+let status = true;
+</script>
+<template>
+  <div>
+    <h2>{{ firstName }} {{ lastName }}</h2>
+    <h2>{{ status ? "Available" : "Not Available" }}</h2>
+    <Address />
+  </div>
+</template>
+<style></style>
+
+src/App.vue
+<script>
+import Profile from "./components/Profile.vue";
+</script>
+<template>
+  <Profile />
+</template>
+<style></style>
+
+
+
+
+
 
 
