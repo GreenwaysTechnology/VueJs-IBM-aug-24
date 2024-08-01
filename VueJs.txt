@@ -2192,7 +2192,8 @@ export default {
 Using setup attribute:
 
 src/components/Address.vue
-<script>
+
+<script setup>
 let address = {
   city: "Coimbatore",
   state: "Tamil nadu",
@@ -2208,6 +2209,7 @@ let address = {
 
 
 src/components/Profile.vue
+
 <script setup>
 import Address from "./Address.vue";
 let firstName = "Subramaian";
@@ -2224,17 +2226,281 @@ let status = true;
 <style></style>
 
 src/App.vue
-<script>
+<script setup>
 import Profile from "./components/Profile.vue";
 </script>
 <template>
   <Profile />
 </template>
 <style></style>
+.....................................................................................
+			    Directives
+......................................................................................
+
+What is Directive?
+  Directive is object which helps to create custom elements and attributes
+ Directives enchances existing html elements- We can extend the basic functionality of HTML elemements.
+ We are going to add new behaviour to the HTML Elements.
 
 
+Custom elements and attributes:
+................................
+<h1>Hello</h1>
+  h1 is built in html element, it is part of the html language.
+
+HTML runtime:
+
+ When html runtime encounters h1 element, it knows how to represent.
+
+<hello>
+<profile>
+<address>
+   These are looks like html elements but not.
+  Html runtime when encounters these elements, internally it throws Runtime Error 
+ Called " UnKnownElementException"
+ 
+  if UnKnownElementException is thrown, browser automatically converts it into "PlainText" Node, renders it.
+
+In 2007, w3 introduced  new feature called "Custom element Feature", Accordint to custom element, we can introduce custom element.
+
+How to teach browser to understand custom element?
+ Via "Javascript".
+
+w3c introduced new api called customElements.define("popup-info",PopupInfo);
+
+Custom attributes:
+
+Similar to custom elements we can custom attributes also,through which we can add new meaning to existing html elements.
+
+<div style>
+      |
+    attribute - built in
+
+<div my-if> 
+     |
+    custom attribute
+
+In frameworks like angular and vue, we have feature called directives(custom elements and custom attributes).
+
+		"Every Component is custom element/directive"
+
+<app-drawer>
+<profile> ----------| js code--- runs---renders in the browser
 
 
+<app-drawer> ---|JS Code--->Runs ---renders in the browser....
+
+eg:
+<script setup>
+import AppDrawer from './components/drawer/AppDrawer.vue'
+</script>
+<template>
+<h1>Drawer App</h1>
+<!-- Custom element -->
+<app-drawer></app-drawer>
+</template>
+<style>
+
+</style>
+
+src/componnets/drawer/AppDrawer.vue
+<script setup>
+</script>
+<template>
+    <p>Drawer Element</p>
+</template>
+<style>
+				Directives
+		------------------------------------------------
+		|                                              |
+	 Custom Element                                    Custom attribute  
+         (Component)                                       (Attibute directive)
+  .....................................................................................
+			 Custom attribute  
+
+
+1.Built in element Attributes
+
+ <img src="" alt="">
+       |      |
+   Attributes - Built in attributes
+
+Browser knows how to put logic to src and alt.
+
+2.Custom attributes on existing html elements
+
+<img customAttribute />
+        | 
+     custom attribute
+How to teach browser to parse custom Attributes 
+  "Through Javascript"
+
+eg: Vue rendered page:
+
+<div id="app" data-v-app="">
+
+.....................................................................................
+	Vue.js Helps to add Custom attributes on existing elements via "Directives" -		    	       Attribute Directives
+.....................................................................................
+Vue js attribute directive syntax:
+
+v-directiveName
+
+
+Built in Directives:
+...................
+v-text
+v-html
+v-show
+v-if
+v-else
+v-else-if
+v-for
+v-on
+v-bind
+v-model
+v-slot
+v-pre
+v-once
+v-memo
+v-cloak
+
+Special Attributes
+key
+ref
+is
+
+Built in custom elements(custom directives/components)
+.......................................................
+<Transition>
+<TransitionGroup>
+<KeepAlive>
+<Teleport>
+<Suspense>
+
+Special Elements
+<component>
+<slot>
+<template>
+.....................................................................................				v-text and v-html
+.....................................................................................
+v-html => Innerhtml
+v-text => innerText
+It is alernate to interpolation.
+
+v-text and v-html both are same
+
+ v-text inserts content as "plain text node"
+ v-html inserts content as "html node"
+
+<script setup>
+const name = "Subramanian";
+</script>
+
+<template>
+  <h1>Interpolation using "`Double Curly braces`" notation</h1>
+  <h2>Name {{ name }}</h2>
+  
+  <h1>Interpolation using Directive vtext</h1>
+  <h2 v-text="`Name ${name}`"></h2>
+
+  <h1>Interpolation using Directive vhtml</h1>
+  <h2 v-html="`Name ${name}`"></h2>
+</template>
+<style></style>
+...................................................................................
+			v-bind
+..................................................................................
+
+v-bind attach html attributes or components values dynamically.
+
+Binding means attach value to the attribute.
+
+Types of binding
+
+1.static binding
+2.dynamic binding
+
+1.static binding
+
+ <img src="logo.png">
+  
+   here the value of src cant be changed once it is rendered
+ 
+
+2.dynamic binding
+
+  <img v-bind:src="variableHoldingImageValue"/>
+
+  let variableHoldingImageValue="logo.png"
+
+ v-bind:src
+   is dynamic binding, that src value can be changed dynamically.
+
+
+eg:
+<script setup>
+const imgUrl = "/src/assets/logo.svg";
+const isHidden = true;
+const isEnabled= false 
+</script>
+
+<template>
+  <div>
+    <h1>Static Binding</h1>
+    <img src="./assets/logo.svg" height="100" width="100" />
+  </div>
+  <div>
+    <h1>Dynamic Binding</h1>
+    <img v-bind:src="imgUrl" height="100" width="100" />
+  </div>
+  <div>
+    <h1>Dynamic binding with show and hide</h1>
+    <article v-bind:hidden="isHidden">This is article</article>
+  </div>
+  <div>
+    <h1>Dynamic binding with enable and disable</h1>
+    <button v-bind:disabled="isEnabled">button</button>
+  </div>
+</template>
+<style></style>
+.....................................................................................
+			Code Refactoring for v-bind Directive
+.....................................................................................
+
+Full syntax
+<button v-bind:disabled="isEnabled">button</button>
+
+Short cut:
+<button :disabled="isEnabled">button</button>
+
+
+Eg:
+<script setup>
+const imgUrl = "/src/assets/logo.svg";
+const isHidden = true;
+const isEnabled = false;
+</script>
+
+<template>
+  <div>
+    <h1>Static Binding</h1>
+    <img src="./assets/logo.svg" height="100" width="100" />
+  </div>
+  <div>
+    <h1>Dynamic Binding</h1>
+    <img :src="imgUrl" height="100" width="100" />
+  </div>
+  <div>
+    <h1>Dynamic binding with show and hide</h1>
+    <article :hidden="isHidden">This is article</article>
+  </div>
+  <div>
+    <h1>Dynamic binding with enable and disable</h1>
+    <button :disabled="isEnabled">button</button>
+  </div>
+</template>
+<style></style>
 
 
 
