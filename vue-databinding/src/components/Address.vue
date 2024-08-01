@@ -41,7 +41,7 @@ export default {
 </template>
 <style></style> -->
 
-<script>
+<script setup>
 let address = {
   city: "Coimbatore",
   state: "Tamil nadu",
