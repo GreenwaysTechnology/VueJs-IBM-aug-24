@@ -1,5 +1,9 @@
 <script>
+import ReviewDashboard from "./ReviewDashboard.vue";
 export default {
+  components: {
+    ReviewDashboard,
+  },
   data() {
     //reactive state
     return {
@@ -21,10 +25,12 @@ export default {
 </script>
 <template>
   <div>
-    <h1>Review App</h1>
-    <h2>Like : {{ like }} Dislike {{ dislike }}</h2>
-    <button @click="onLike">Like</button>
-    <button @click="onDislike">DisLike</button>
+    <ReviewDashboard
+      :like="like"
+      :dislike="dislike"
+      :onLike="onLike"
+      :onDislike="onDislike"
+    />
   </div>
 </template>
 <style></style>
