@@ -1,5 +1,5 @@
 <script>
-import Review from "./components/ReviewComposition.vue";
+import Review from "./components/Review.vue";
 export default {
   components: {
     Review,
