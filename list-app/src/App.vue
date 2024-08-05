@@ -1,38 +1,19 @@
 <script setup>
-import { reactive } from "vue";
-
-const TODOS = [
-     
-    {
-        userId: 1,
-        id: 1,
-        title: "delectus aut autem",
-        completed: false
-    },
-    {
-        userId: 1,
-        id: 2,
-        title: "quis ut nam facilis et officia qui",
-        completed: false
-    },
-    {
-        userId: 1,
-        id: 3,
-        title: "fugiat veniam minus",
-        completed: false
-    },
-]
-
-const todosList = reactive(TODOS);
-const onSelectItem=()=>{
-    console.log('item is selected')
-}
+import { ref } from "vue";
+import TODOS from "./mock-data/Todos";
+const todos = ref(TODOS);
+const filter = () => {
+  return todos.value= todos.value.filter((todo) => todo.completed);
+};
 </script>
+
 <template>
   <div>
+    <button @click="filter">FilterByStatus</button>
+    <h1>Total todos: {{ todos.length }}</h1>
     <ul>
-      <li v-for="todo in todosList" @click="onSelectItem">
-     {{ todo.title }}
+      <li v-for="todo in todos" :key="todo.id">
+        <span>{{ todo.title }}</span>
       </li>
     </ul>
   </div>
