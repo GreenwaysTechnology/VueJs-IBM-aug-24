@@ -4063,12 +4063,211 @@ const filter = () => {
     </ul>
   </div>
 </template>
+.................................................................................
+				Computed Properties
+..................................................................................
+
+Computed properties are special methods which returns the template expressions.
+If we use the expressions in a page more times, we can cache it.
+
+Computed Properties in Options Api:
+..................................
+
+<script>
+export default {
+  data() {
+    return {
+      author: {
+        name: "John Doe",
+        books: ["Vue 2- Advanced Guide", "Vue 3- Basic Guide"],
+      }
+    };
+  },
+};
+</script>
+<template>
+  <p>Has Published Books:</p>
+  <span>{{author.books.length > 0 ? 'Yes' : 'No'}}</span>
+</template>
+
+{{author.books.length > 0 ? 'Yes' : 'No'}} - This is expression
+
+ if you include this calculation(express) more than once in the template, it executes every time
+
+Thats where computed properties  comes into picture
 
 
+<script>
+export default {
+  data() {
+    return {
+      author: {
+        name: "John Doe",
+        books: ["Vue 2- Advanced Guide", "Vue 3- Basic Guide"],
+      },
+    };
+  },
+  computed: {
+    publishedBooksMessage() {
+      console.log("called");
+      return this.author.books.length > 0 ? "Yes" : "No";
+    },
+  },
+};
+</script>
+<template>
+  <p>Has Published Books:</p>
+  <!-- <span>{{ author.books.length > 0 ? "Yes" : "No" }}</span> -->
+  <span>{{ publishedBooksMessage }}</span>
+  <span>{{ publishedBooksMessage }}</span>
+  <span>{{ publishedBooksMessage }}</span>
+  <span>{{ publishedBooksMessage }}</span>
+  <span>{{ publishedBooksMessage }}</span>
+  <span>{{ publishedBooksMessage }}</span>
+</template>
+....................................................................................
+			   Methods and Expressions
 
 
+<script>
+export default {
+  data() {
+    return {
+      author: {
+        name: "John Doe",
+        books: ["Vue 2- Advanced Guide", "Vue 3- Basic Guide"],
+      },
+    };
+  },
+  methods: {
+    calculateBooksMessage() {
+      console.log("method called");
+      return this.author.books.length > 0 ? "Yes" : "No";
+    },
+  },
+  computed: {
+    publishedBooksMessage() {
+      console.log("called");
+      return this.author.books.length > 0 ? "Yes" : "No";
+    },
+  },
+};
+</script>
+<template>
+  <p>Has Published Books:</p>
+  <!-- <span>{{ author.books.length > 0 ? "Yes" : "No" }}</span> -->
+  <span>{{ publishedBooksMessage }}</span>
+  <span>{{ publishedBooksMessage }}</span>
+  <span>{{ publishedBooksMessage }}</span>
+  <span>{{ publishedBooksMessage }}</span>
+  <span>{{ publishedBooksMessage }}</span>
+  <span>{{ publishedBooksMessage }}</span>
+  <br />
+  <div>
+    <h2>{{ calculateBooksMessage() }}</h2>
+    <h2>{{ calculateBooksMessage() }}</h2>
+  </div>
+</template>
+
+Now you can notice the same result by invoking a method in the expression which is defined inside methods or computed 
+
+      "methods which are not cached but computed methods are cached"
+
+.....................................................................................
+			 Compostion api and computed Properties
+.....................................................................................
+
+<script setup>
+import { reactive, computed } from "vue";
+const author = reactive({
+  name: "John Doe",
+  books: ["Vue 2- Advanced Guide", "Vue 3- Basic Guide"],
+});
+
+const publishedMessage = computed(() => {
+  return author.books.length > 0 ? "Yes" : "No";
+});
+</script>
+<template>
+  <p>Has Published Books:</p>
+  <span>{{ publishedMessage }}</span>
+</template>
+.....................................................................................
+			  Data Sharing patterns
+....................................................................................
+
+1.Props or property pattern
+  Sharing data from parent component to child component
+2.Event Emitter pattern
+  Sharing data from child to parent component
+3.Global data sharing pattern
+
+....................................................................................
+			 Event Emitter pattern
+...................................................................................
+
+Child Component can emit event along with data, where as parent component can listen for data.
+
+Event Emitter Syntax:
 
 
+In the child component:
+
+const emitter= defineEmits(['change','remove','save'])
+
+emitter('NameoftheEvent',data)
+
+emitter('onRequest',data)
+
+In the Parent Component
+
+<EventEmitterChild @on-request="getData"/>
+
+function getData(evt){
+  console.log(evt)
+}
+
+eg:
+
+src/components/Child.vue
+<script setup>
+const emit = defineEmits(["onRequest"]);
+
+const onSend = () => {
+  //send data to parent
+  emit("onRequest", "Hello,I am from Child");
+};
+</script>
+
+<template>
+  <div>
+    <h1>Child Component</h1>
+    <button @click="onSend">Send</button>
+  </div>
+</template>
+
+Parent
+src/App.vue
+<!-- Parent Component -->
+<script setup>
+import { ref } from "vue";
+import Child from "./components/Child.vue";
+
+const data = ref("");
+const getData = (evt) => {
+  console.log(evt);
+  data.value = evt;
+};
+</script>
+
+<template>
+  <div>
+    <h1>Parent Component</h1>
+    <h2>Data From Child : {{ data }}</h2>
+    <hr />
+    <Child @on-request="getData" />
+  </div>
+</template>
 
 
 
